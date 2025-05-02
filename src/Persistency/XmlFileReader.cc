@@ -783,9 +783,7 @@ StatusCode XmlFileReader::ReadEventInformation()
     InputUInt subrunUInt(subrun);
     InputUInt eventUInt(event);
 
-    PandoraApi::SetEventInformation(*m_pPandora, runUInt, subrunUInt, eventUInt);
-
-    return STATUS_CODE_SUCCESS;
+    return PandoraApi::SetEventInformation(*m_pPandora, runUInt, subrunUInt, eventUInt);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------

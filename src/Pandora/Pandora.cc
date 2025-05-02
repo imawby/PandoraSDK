@@ -229,7 +229,7 @@ unsigned int Pandora::GetEvent() const
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-void Pandora::SetEventInformation(const InputUInt run, const InputUInt subrun, const InputUInt event)
+void Pandora::SetEventInformation(const InputUInt &run, const InputUInt &subrun, const InputUInt &event)
 {
     m_run = run;
     m_subrun = subrun;

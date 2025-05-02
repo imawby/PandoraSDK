@@ -138,7 +138,7 @@ private:
      *  @param  the subrun number of the input data 
      *  @param  the event number of the input data 
      */
-    void SetEventInformation(const InputUInt run, const InputUInt subrun, const InputUInt event);
+    void SetEventInformation(const InputUInt &run, const InputUInt &subrun, const InputUInt &event);
 
     /**
      *  @brief  Read pandora settings
