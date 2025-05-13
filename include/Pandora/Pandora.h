@@ -138,7 +138,7 @@ private:
      *  @param  the subrun number of the input data 
      *  @param  the event number of the input data 
      */
-    StatusCode SetEventInformation(const unsigned int &run, const unsigned int &subrun, const unsigned int &event);
+    StatusCode SetEventInformation(const unsigned int run, const unsigned int subrun, const unsigned int event);
 
     /**
      *  @brief  Read pandora settings

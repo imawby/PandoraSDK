@@ -22,7 +22,6 @@
 #include "Managers/VertexManager.h"
 
 #include "Pandora/Pandora.h"
-#include "Pandora/PandoraInputTypes.h"
 #include "Pandora/PandoraImpl.h"
 #include "Pandora/PandoraSettings.h"
 
@@ -229,7 +228,7 @@ unsigned int Pandora::GetEvent() const
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-StatusCode Pandora::SetEventInformation(const unsigned int &run, const unsigned int &subrun, const unsigned int &event)
+StatusCode Pandora::SetEventInformation(const unsigned int run, const unsigned int subrun, const unsigned int event)
 {
     try
     {
@@ -237,7 +236,7 @@ StatusCode Pandora::SetEventInformation(const unsigned int &run, const unsigned 
         m_subrun.Set(subrun);
         m_event.Set(event);
     }
-    catch (StatusCodeException &statusCodeException)
+    catch (const StatusCodeException &statusCodeException)
     {
         std::cout << "Failure in SetEventInformation, " << statusCodeException.ToString() << std::endl;
         return STATUS_CODE_FAILURE;

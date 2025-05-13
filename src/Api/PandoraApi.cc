@@ -18,8 +18,8 @@ pandora::StatusCode PandoraApi::ProcessEvent(const pandora::Pandora &pandora)
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-pandora::StatusCode PandoraApi::SetEventInformation(const pandora::Pandora &pandora, const unsigned int &run, 
-    const unsigned int &subrun, const unsigned int &event)
+pandora::StatusCode PandoraApi::SetEventInformation(const pandora::Pandora &pandora, const unsigned int run, 
+    const unsigned int subrun, const unsigned int event)
 {
     return pandora.GetPandoraApiImpl()->SetEventInformation(run, subrun, event);
 }

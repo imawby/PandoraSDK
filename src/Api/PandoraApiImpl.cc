@@ -104,7 +104,7 @@ StatusCode PandoraApiImpl::ProcessEvent() const
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-StatusCode PandoraApiImpl::SetEventInformation(const unsigned int &run, const unsigned int &subrun, const unsigned int &event) const
+StatusCode PandoraApiImpl::SetEventInformation(const unsigned int run, const unsigned int subrun, const unsigned int event) const
 {
     return m_pPandora->SetEventInformation(run, subrun, event);
 }
