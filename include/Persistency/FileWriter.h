@@ -33,9 +33,9 @@ public:
      * 
      *  @param  algorithm the pandora instance to be used alongside the file writer
      *  @param  fileName the name of the output file
-     *  @param  fileMode the mode for file writing
+     *  @param  fileVersion the file version
      */
-    FileWriter(const pandora::Pandora &pandora, const std::string &fileName);
+    FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int fileVersion = 1);
 
     /**
      *  @brief  Destructor
@@ -221,6 +221,8 @@ private:
      *  @param  pTrack address of the track
      */
     StatusCode WriteTrackRelationships(const Track *const pTrack);
+
+    unsigned int m_fileVersion; ///< Version of the file 
 };
 
 } // namespace pandora

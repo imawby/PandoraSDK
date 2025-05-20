@@ -32,8 +32,10 @@ public:
      *  @param  algorithm the pandora instance to be used alongside the file writer
      *  @param  fileName the name of the output file
      *  @param  fileMode the mode for file writing
+     *  @param  fileVersion the file version
      */
-    BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode = APPEND);
+    BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode = APPEND,
+        const unsigned int fileVersion = 1);
 
     /**
      *  @brief  Destructor

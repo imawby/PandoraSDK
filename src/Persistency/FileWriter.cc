@@ -29,8 +29,9 @@
 namespace pandora
 {
 
-FileWriter::FileWriter(const pandora::Pandora &pandora, const std::string &fileName) :
-    Persistency(pandora, fileName)
+FileWriter::FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int fileVersion) :
+    Persistency(pandora, fileName),
+    m_fileVersion(fileVersion)
 {
 }
 
@@ -80,7 +81,9 @@ StatusCode FileWriter::WriteEvent(const CaloHitList &caloHitList, const TrackLis
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteTrackRelationships(trackList));
     }
 
-    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteEventInformation());
+    if (m_fileVersion == 2)
+        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteEventInformation());
+
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteFooter());
 
     return STATUS_CODE_SUCCESS;

@@ -22,10 +22,11 @@
 namespace pandora
 {
 
-XmlFileWriter::XmlFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode) :
-    FileWriter(pandora, fileName),
-    m_pContainerXmlElement(nullptr),
-    m_pCurrentXmlElement(nullptr)
+XmlFileWriter::XmlFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode, 
+    const unsigned int fileVersion) :
+        FileWriter(pandora, fileName, fileVersion),
+        m_pContainerXmlElement(nullptr),
+        m_pCurrentXmlElement(nullptr)
 {
     m_fileType = XML;
 

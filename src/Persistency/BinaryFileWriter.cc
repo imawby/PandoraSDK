@@ -22,8 +22,9 @@
 namespace pandora
 {
 
-BinaryFileWriter::BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode) :
-    FileWriter(pandora, fileName)
+BinaryFileWriter::BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode,
+    const unsigned int fileVersion) :
+        FileWriter(pandora, fileName, fileVersion)
 {
     m_fileType = BINARY;
 
