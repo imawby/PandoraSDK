@@ -61,6 +61,16 @@ BinaryFileWriter::~BinaryFileWriter()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+StatusCode BinaryFileWriter::WriteGlobalHeader()
+{
+
+    std::cout << "BINARY HELLO HELLO!!!" << std::endl;
+
+    return STATUS_CODE_SUCCESS;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 StatusCode BinaryFileWriter::WriteHeader(const ContainerId containerId)
 {
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(PANDORA_FILE_HASH));

@@ -51,6 +51,7 @@ public:
     StatusCode WriteVariable(const std::string &xmlKey, const T &t);
 
 private:
+    StatusCode WriteGlobalHeader();
     StatusCode WriteHeader(const ContainerId containerId);
     StatusCode WriteFooter();
     StatusCode WriteSubDetector(const SubDetector *const pSubDetector);

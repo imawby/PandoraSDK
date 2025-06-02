@@ -45,6 +45,8 @@ FileWriter::~FileWriter()
 
 StatusCode FileWriter::WriteGeometry()
 {
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteGlobalHeader());
+
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteHeader(GEOMETRY_CONTAINER));
 
     if (GEOMETRY_CONTAINER != m_containerId)

@@ -60,6 +60,12 @@ public:
         const bool writeMCRelationships = true, const bool writeTrackRelationships = true);
 
 protected:
+
+    /**
+     *  @brief  Write the global header to the file
+     */
+    virtual StatusCode WriteGlobalHeader() = 0;
+
    /**
      *  @brief  Write the container header to the file
      * 

@@ -61,6 +61,29 @@ XmlFileWriter::~XmlFileWriter()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+StatusCode XmlFileWriter::WriteGlobalHeader()
+{
+    // m_pContainerXmlElement = new TiXmlElement("Geometry");
+    // m_pXmlDocument->LinkEndChild(m_pContainerXmlElement);
+
+    std::cout << "XML HELLO HELLO!!!" << std::endl;
+
+    // m_pCurrentXmlElement = new TiXmlElement("Header");
+    // m_pXmlDocument->LinkEndChild(m_pCurrentXmlElement);
+
+    // PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable("FileType", "Jam"));
+    // PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable("Version", 21));
+
+    // //m_pXmlDocument->LinkEndChild(m_pContainerXmlElement);
+
+    // //m_pContainerXmlElement->LinkEndChild(m_pCurrentXmlElement);
+    // m_pCurrentXmlElement = nullptr;
+
+    return STATUS_CODE_SUCCESS;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 StatusCode XmlFileWriter::WriteHeader(const ContainerId containerId)
 {
     const std::string containerXmlKey((GEOMETRY_CONTAINER == containerId) ? "Geometry" : (EVENT_CONTAINER == containerId) ? "Event" : "Unknown");
