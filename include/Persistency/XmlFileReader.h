@@ -48,6 +48,8 @@ public:
     StatusCode ReadVariable(const std::string &xmlKey, T &t);
 
 private:
+    StatusCode ReadNextGlobalHeaderComponent();
+    StatusCode ReadVersion();
     StatusCode ReadHeader();
     StatusCode GoToNextContainer();
     ContainerId GetNextContainerId();

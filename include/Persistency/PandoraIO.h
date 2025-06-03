@@ -22,6 +22,7 @@ const std::string PANDORA_FILE_HASH("pandora"); ///< Look for hash each event to
  */
 enum ContainerId
 {
+    HEADER_CONTAINER,
     EVENT_CONTAINER,
     GEOMETRY_CONTAINER,
     UNKNOWN_CONTAINER

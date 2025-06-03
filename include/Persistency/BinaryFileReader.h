@@ -46,6 +46,7 @@ public:
     StatusCode ReadVariable(T &t);
 
 private:
+    StatusCode ReadNextGlobalHeaderComponent();
     StatusCode ReadHeader();
     StatusCode GoToNextContainer();
     ContainerId GetNextContainerId();

@@ -35,6 +35,13 @@ BinaryFileReader::~BinaryFileReader()
     m_fileStream.close();
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------  
+
+StatusCode BinaryFileReader::ReadNextGlobalHeaderComponent()
+{
+  return STATUS_CODE_SUCCESS;
+}
+  
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode BinaryFileReader::ReadHeader()

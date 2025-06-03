@@ -14,7 +14,9 @@ namespace pandora
 {
 
 FileReader::FileReader(const pandora::Pandora &pandora, const std::string &fileName) :
-    Persistency(pandora, fileName)
+  Persistency(pandora, fileName),
+  m_fileMajorVersion(0),
+  m_fileMinorVersion(0)
 {
 }
 
@@ -24,6 +26,40 @@ FileReader::~FileReader()
 {
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+StatusCode FileReader::ReadGlobalHeader()
+{
+    if (HEADER_CONTAINER != this->GetNextContainerId())
+    {
+        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToGlobalHeader());
+    }
+
+    if (HEADER_CONTAINER != this->GetNextContainerId())
+    {
+        std::cout << "no global header found :(, set version to default" << std::endl;
+        return STATUS_CODE_SUCCESS;
+    }
+
+    try
+    {
+        while (STATUS_CODE_SUCCESS == this->ReadNextGlobalHeaderComponent())
+            continue;
+    }
+    catch (StatusCodeException &statusCodeException)
+    {
+        std::cout << " FileReader::ReadGlobalHeader() encountered unrecognized object in file: " << statusCodeException.ToString() << std::endl;
+    }
+    
+    m_containerId = UNKNOWN_CONTAINER;
+
+    std::cout << "MajorVersion: " << m_fileMajorVersion << std::endl;
+    std::cout << "MinorVersion: " << m_fileMinorVersion << std::endl;
+    
+    return STATUS_CODE_SUCCESS;
+}
+
+  
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode FileReader::ReadGeometry()
@@ -79,6 +115,19 @@ StatusCode FileReader::ReadEvent()
     return STATUS_CODE_SUCCESS;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+StatusCode FileReader::GoToGlobalHeader()
+{
+    do
+    {
+        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToNextContainer());
+    }
+    while (HEADER_CONTAINER != this->GetNextContainerId());
+
+    return STATUS_CODE_SUCCESS;
+}
+ 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode FileReader::GoToNextGeometry()

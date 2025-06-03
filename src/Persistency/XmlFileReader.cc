@@ -42,6 +42,58 @@ XmlFileReader::~XmlFileReader()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+StatusCode XmlFileReader::ReadNextGlobalHeaderComponent()
+{
+    m_containerId = this->GetNextContainerId();
+
+    if (HEADER_CONTAINER != m_containerId)
+        return STATUS_CODE_NOT_FOUND;
+
+    if (!m_pCurrentXmlElement)
+    {
+        TiXmlHandle localHandle(m_pContainerXmlNode);
+        m_pCurrentXmlElement = localHandle.FirstChild().Element();
+    }
+    else
+    {
+        m_pCurrentXmlElement = m_pCurrentXmlElement->NextSiblingElement();
+    }
+
+    if (!m_pCurrentXmlElement)
+    {
+	this->GoToNextContainer();
+	return STATUS_CODE_NOT_FOUND;
+    }
+
+    const std::string componentName(m_pCurrentXmlElement->ValueStr());
+
+    if (std::string("Version") == componentName)
+    {
+      this->ReadVersion();
+    }
+    else
+    {
+        return STATUS_CODE_FAILURE;
+    }
+    
+    return STATUS_CODE_SUCCESS;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------  
+
+StatusCode XmlFileReader::ReadVersion()
+{
+    if (HEADER_CONTAINER != m_containerId)
+        return STATUS_CODE_FAILURE;
+
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->ReadVariable("MajorVersion", m_fileMajorVersion));
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->ReadVariable("MinorVersion", m_fileMinorVersion));    
+
+    return STATUS_CODE_SUCCESS;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 StatusCode XmlFileReader::ReadHeader()
 {
     m_pCurrentXmlElement = nullptr;
@@ -49,10 +101,10 @@ StatusCode XmlFileReader::ReadHeader()
 
     if ((EVENT_CONTAINER != m_containerId) && (GEOMETRY_CONTAINER != m_containerId))
         return STATUS_CODE_FAILURE;
-
+    
     return STATUS_CODE_SUCCESS;
 }
-
+  
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode XmlFileReader::GoToNextContainer()
@@ -82,8 +134,12 @@ StatusCode XmlFileReader::GoToNextContainer()
 ContainerId XmlFileReader::GetNextContainerId()
 {
     const std::string containerId((nullptr != m_pContainerXmlNode) ? m_pContainerXmlNode->ValueStr() : "");
-
-    if (std::string("Event") == containerId)
+    
+    if (std::string("Header") == containerId)
+    {
+      return HEADER_CONTAINER;
+    }
+    else if (std::string("Event") == containerId)
     {
         return EVENT_CONTAINER;
     }
