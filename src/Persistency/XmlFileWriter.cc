@@ -64,10 +64,14 @@ StatusCode XmlFileWriter::WriteGlobalHeader()
 {
     std::cout << "XML HELLO HELLO!!!" << std::endl;
 
-    m_pCurrentXmlElement = new TiXmlElement("Header");
-    m_pXmlDocument->LinkEndChild(m_pCurrentXmlElement);
+    m_pContainerXmlElement = new TiXmlElement("Header");
+    m_pXmlDocument->LinkEndChild(m_pContainerXmlElement);
+
+    m_pCurrentXmlElement = new TiXmlElement("Version");
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable("MajorVersion", m_fileMajorVersion));
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable("MinorVersion", m_fileMinorVersion));
+
+    m_pContainerXmlElement->LinkEndChild(m_pCurrentXmlElement);
     m_pCurrentXmlElement = nullptr;
 
     return STATUS_CODE_SUCCESS;
