@@ -32,15 +32,24 @@ StatusCode FileReader::ReadGlobalHeader()
 {
     if (HEADER_CONTAINER != this->GetNextContainerId())
     {
-        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToGlobalHeader());
+      const StatusCode statCode(this->GoToGlobalHeader());
+
+      // ATTN: Global header may not be present, and that's fine
+      if (statCode == STATUS_CODE_NOT_FOUND)
+      {
+	return STATUS_CODE_SUCCESS;
+      }
+      else if (statCode != STATUS_CODE_SUCCESS)
+      {
+	return statCode;
+      }
     }
 
-    if (HEADER_CONTAINER != this->GetNextContainerId())
-    {
-        std::cout << "no global header found :(, set version to default" << std::endl;
-        return STATUS_CODE_SUCCESS;
-    }
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->ReadHeader());
 
+    if (HEADER_CONTAINER != m_containerId)
+        return STATUS_CODE_FAILURE;
+    
     try
     {
         while (STATUS_CODE_SUCCESS == this->ReadNextGlobalHeaderComponent())
@@ -53,13 +62,14 @@ StatusCode FileReader::ReadGlobalHeader()
     
     m_containerId = UNKNOWN_CONTAINER;
 
+    //////////////////////////////////////
     std::cout << "MajorVersion: " << m_fileMajorVersion << std::endl;
     std::cout << "MinorVersion: " << m_fileMinorVersion << std::endl;
+    //////////////////////////////////////
     
     return STATUS_CODE_SUCCESS;
 }
 
-  
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode FileReader::ReadGeometry()
@@ -121,7 +131,15 @@ StatusCode FileReader::GoToGlobalHeader()
 {
     do
     {
-        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToNextContainer());
+      // ATTN: Global header may not be present, and that's fine
+      try
+      {
+	this->GoToNextContainer();
+      }
+      catch(...)
+      {
+	return STATUS_CODE_NOT_FOUND;
+      }
     }
     while (HEADER_CONTAINER != this->GetNextContainerId());
 

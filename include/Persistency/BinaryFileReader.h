@@ -46,12 +46,12 @@ public:
     StatusCode ReadVariable(T &t);
 
 private:
-    StatusCode ReadNextGlobalHeaderComponent();
     StatusCode ReadHeader();
     StatusCode GoToNextContainer();
     ContainerId GetNextContainerId();
     StatusCode GoToGeometry(const unsigned int geometryNumber);
     StatusCode GoToEvent(const unsigned int eventNumber);
+    StatusCode ReadNextGlobalHeaderComponent();  
     StatusCode ReadNextGeometryComponent();
     StatusCode ReadNextEventComponent();
 

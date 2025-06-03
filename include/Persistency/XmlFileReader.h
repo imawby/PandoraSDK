@@ -48,16 +48,20 @@ public:
     StatusCode ReadVariable(const std::string &xmlKey, T &t);
 
 private:
-    StatusCode ReadNextGlobalHeaderComponent();
-    StatusCode ReadVersion();
     StatusCode ReadHeader();
     StatusCode GoToNextContainer();
     ContainerId GetNextContainerId();
     StatusCode GoToGeometry(const unsigned int geometryNumber);
     StatusCode GoToEvent(const unsigned int eventNumber);
+    StatusCode ReadNextGlobalHeaderComponent();  
     StatusCode ReadNextGeometryComponent();
     StatusCode ReadNextEventComponent();
 
+    /**
+     *  @brief  Read file version info from the current position in the file
+     */  
+    StatusCode ReadVersion();
+  
     /**
      *  @brief  Read a sub detector from the current position in the file
      */
