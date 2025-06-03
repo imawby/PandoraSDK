@@ -22,9 +22,8 @@
 namespace pandora
 {
 
-BinaryFileWriter::BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode,
-    const unsigned int fileVersion) :
-        FileWriter(pandora, fileName, fileVersion)
+    BinaryFileWriter::BinaryFileWriter(const pandora::Pandora &pandora, const std::string &fileName, const FileMode fileMode, const unsigned int majorVersion, const unsigned int minorVersion) :
+        FileWriter(pandora, fileName, majorVersion, minorVersion)
 {
     m_fileType = BINARY;
 
@@ -63,7 +62,6 @@ BinaryFileWriter::~BinaryFileWriter()
 
 StatusCode BinaryFileWriter::WriteGlobalHeader()
 {
-
     std::cout << "BINARY HELLO HELLO!!!" << std::endl;
 
     return STATUS_CODE_SUCCESS;

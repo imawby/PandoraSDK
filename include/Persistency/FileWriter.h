@@ -33,9 +33,11 @@ public:
      * 
      *  @param  algorithm the pandora instance to be used alongside the file writer
      *  @param  fileName the name of the output file
-     *  @param  fileVersion the file version
+     *  @param  majorVersion the major version of the output file
+     *  @param  minorVersion the minor version of the output file
      */
-    FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int fileVersion = 1);
+    FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int majorVersion = 0, 
+        const unsigned int minorVersion = 0);
 
     /**
      *  @brief  Destructor
@@ -59,12 +61,12 @@ public:
     StatusCode WriteEvent(const CaloHitList &caloHitList, const TrackList &trackList, const MCParticleList &mcParticleList,
         const bool writeMCRelationships = true, const bool writeTrackRelationships = true);
 
-protected:
-
     /**
      *  @brief  Write the global header to the file
      */
     virtual StatusCode WriteGlobalHeader() = 0;
+
+protected:
 
    /**
      *  @brief  Write the container header to the file
@@ -134,6 +136,9 @@ protected:
      * 
      */
     virtual StatusCode WriteEventInformation() = 0;
+
+    unsigned int m_fileMajorVersion; ///< Major version of the output file 
+    unsigned int m_fileMinorVersion; ///< Minor version of the output file 
 
 private:
     /**
@@ -227,8 +232,6 @@ private:
      *  @param  pTrack address of the track
      */
     StatusCode WriteTrackRelationships(const Track *const pTrack);
-
-    unsigned int m_fileVersion; ///< Version of the file 
 };
 
 } // namespace pandora
