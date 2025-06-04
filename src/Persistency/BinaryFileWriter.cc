@@ -78,10 +78,12 @@ StatusCode BinaryFileWriter::WriteHeader(const ContainerId containerId)
 
 StatusCode BinaryFileWriter::WriteFooter()
 {
-    if ((EVENT_CONTAINER != m_containerId) && (GEOMETRY_CONTAINER != m_containerId))
+  if ((HEADER_CONTAINER != m_containerId) && (EVENT_CONTAINER != m_containerId) && (GEOMETRY_CONTAINER != m_containerId))
         return STATUS_CODE_FAILURE;
 
-    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable((EVENT_CONTAINER == m_containerId) ? EVENT_END_COMPONENT : GEOMETRY_END_COMPONENT));
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable((HEADER_CONTAINER == m_containerId) ? HEADER_END_COMPONENT :
+        (EVENT_CONTAINER == m_containerId) ? EVENT_END_COMPONENT : GEOMETRY_END_COMPONENT));
+    
     m_containerId = UNKNOWN_CONTAINER;
 
     const std::ofstream::pos_type containerSize(m_fileStream.tellp() - m_containerPosition);
@@ -110,6 +112,7 @@ StatusCode BinaryFileWriter::WriteVersion()
     if (HEADER_CONTAINER != m_containerId)
         return STATUS_CODE_FAILURE;
 
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(VERSION_COMPONENT));
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(m_fileMajorVersion));
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(m_fileMinorVersion));
 

@@ -35,6 +35,8 @@ enum ContainerId
  */
 enum ComponentId
 {
+    HEADER_END_COMPONENT,
+    VERSION_COMPONENT,    
     CALO_HIT_COMPONENT,
     TRACK_COMPONENT,
     MC_PARTICLE_COMPONENT,

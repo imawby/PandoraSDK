@@ -52,8 +52,8 @@ StatusCode FileWriter::WriteGlobalHeader()
         return STATUS_CODE_FAILURE;
     
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVersion());
-
-    this->WriteFooter();
+    
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteFooter());
 
     return STATUS_CODE_SUCCESS;
 }  
