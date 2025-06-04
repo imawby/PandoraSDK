@@ -32,24 +32,14 @@ StatusCode FileReader::ReadGlobalHeader()
 {
     if (HEADER_CONTAINER != this->GetNextContainerId())
     {
-      const StatusCode statCode(this->GoToGlobalHeader());
-
-      // ATTN: Global header may not be present, and that's fine
-      if (statCode == STATUS_CODE_NOT_FOUND)
-      {
-	return STATUS_CODE_SUCCESS;
-      }
-      else if (statCode != STATUS_CODE_SUCCESS)
-      {
-	return statCode;
-      }
+        PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToGlobalHeader());      
     }
 
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->ReadHeader());
 
     if (HEADER_CONTAINER != m_containerId)
         return STATUS_CODE_FAILURE;
-    
+
     try
     {
         while (STATUS_CODE_SUCCESS == this->ReadNextGlobalHeaderComponent())
@@ -59,14 +49,9 @@ StatusCode FileReader::ReadGlobalHeader()
     {
         std::cout << " FileReader::ReadGlobalHeader() encountered unrecognized object in file: " << statusCodeException.ToString() << std::endl;
     }
-    
+
     m_containerId = UNKNOWN_CONTAINER;
 
-    //////////////////////////////////////
-    std::cout << "MajorVersion: " << m_fileMajorVersion << std::endl;
-    std::cout << "MinorVersion: " << m_fileMinorVersion << std::endl;
-    //////////////////////////////////////
-    
     return STATUS_CODE_SUCCESS;
 }
 
@@ -129,21 +114,13 @@ StatusCode FileReader::ReadEvent()
 
 StatusCode FileReader::GoToGlobalHeader()
 {
-    do
-    {
-      // ATTN: Global header may not be present, and that's fine
-      try
-      {
-	this->GoToNextContainer();
-      }
-      catch(...)
-      {
-	return STATUS_CODE_NOT_FOUND;
-      }
-    }
-    while (HEADER_CONTAINER != this->GetNextContainerId());
+  do
+  {
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->GoToNextContainer());    
+  }
+  while (HEADER_CONTAINER != this->GetNextContainerId());
 
-    return STATUS_CODE_SUCCESS;
+  return STATUS_CODE_SUCCESS;
 }
  
 //------------------------------------------------------------------------------------------------------------------------------------------

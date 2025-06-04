@@ -172,7 +172,7 @@ StatusCode XmlFileReader::ReadNextGlobalHeaderComponent()
 
     if (std::string("Version") == componentName)
     {
-      this->ReadVersion();
+      PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->ReadVersion());
     }
     else
     {

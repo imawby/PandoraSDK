@@ -119,8 +119,8 @@ protected:
      */
     virtual StatusCode ReadNextEventComponent() = 0;
 
-    unsigned int m_fileMajorVersion;
-    unsigned int m_fileMinorVersion;
+    unsigned int m_fileMajorVersion;  ///< The major version of the input file
+    unsigned int m_fileMinorVersion;  ///< The minor version of the input file
 };
 
 } // namespace pandora
