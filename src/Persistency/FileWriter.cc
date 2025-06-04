@@ -44,6 +44,22 @@ FileWriter::~FileWriter()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+StatusCode FileWriter::WriteGlobalHeader()
+{
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteHeader(HEADER_CONTAINER));
+
+    if (HEADER_CONTAINER != m_containerId)
+        return STATUS_CODE_FAILURE;
+    
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVersion());
+
+    this->WriteFooter();
+
+    return STATUS_CODE_SUCCESS;
+}  
+  
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 StatusCode FileWriter::WriteGeometry()
 {
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteHeader(GEOMETRY_CONTAINER));

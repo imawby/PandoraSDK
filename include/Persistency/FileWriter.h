@@ -45,6 +45,11 @@ public:
     virtual ~FileWriter();
 
     /**
+     *  @brief  Write the global header to the file
+     */
+    StatusCode WriteGlobalHeader();
+  
+    /**
      *  @brief  Write the current geometry information to the file
      */
     StatusCode WriteGeometry();
@@ -61,11 +66,6 @@ public:
     StatusCode WriteEvent(const CaloHitList &caloHitList, const TrackList &trackList, const MCParticleList &mcParticleList,
         const bool writeMCRelationships = true, const bool writeTrackRelationships = true);
 
-    /**
-     *  @brief  Write the global header to the file
-     */
-    virtual StatusCode WriteGlobalHeader() = 0;
-
 protected:
 
    /**
@@ -80,6 +80,12 @@ protected:
      */
     virtual StatusCode WriteFooter() = 0;
 
+    /**
+     *  @brief  Write file version information to the file
+     * 
+     */  
+    virtual StatusCode WriteVersion() = 0;  
+  
     /**
      *  @brief  Write a sub detector to the file
      * 

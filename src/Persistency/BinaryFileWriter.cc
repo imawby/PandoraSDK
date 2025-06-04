@@ -60,15 +60,6 @@ BinaryFileWriter::~BinaryFileWriter()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-StatusCode BinaryFileWriter::WriteGlobalHeader()
-{
-    std::cout << "BINARY HELLO HELLO!!!" << std::endl;
-
-    return STATUS_CODE_SUCCESS;
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-
 StatusCode BinaryFileWriter::WriteHeader(const ContainerId containerId)
 {
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(PANDORA_FILE_HASH));
@@ -110,6 +101,21 @@ StatusCode BinaryFileWriter::WriteFooter()
     return STATUS_CODE_SUCCESS;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+StatusCode BinaryFileWriter::WriteVersion()
+{
+    std::cout << "BINARY HELLO HELLO!!!" << std::endl;
+
+    if (HEADER_CONTAINER != m_containerId)
+        return STATUS_CODE_FAILURE;
+
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(m_fileMajorVersion));
+    PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, this->WriteVariable(m_fileMinorVersion));
+
+    return STATUS_CODE_SUCCESS;
+}
+  
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 StatusCode BinaryFileWriter::WriteSubDetector(const SubDetector *const pSubDetector)

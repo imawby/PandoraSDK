@@ -49,11 +49,10 @@ public:
     template<typename T>
     StatusCode WriteVariable(const T &t);
 
-    StatusCode WriteGlobalHeader();
-
 private:
     StatusCode WriteHeader(const ContainerId containerId);
     StatusCode WriteFooter();
+    StatusCode WriteVersion();  
     StatusCode WriteSubDetector(const SubDetector *const pSubDetector);
     StatusCode WriteLArTPC(const LArTPC *const pLArTPC);
     StatusCode WriteDetectorGap(const DetectorGap *const pDetectorGap);
