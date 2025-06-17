@@ -36,8 +36,8 @@ public:
      *  @param  majorVersion the major version of the output file
      *  @param  minorVersion the minor version of the output file
      */
-    FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int majorVersion = 0, 
-        const unsigned int minorVersion = 0);
+    FileWriter(const pandora::Pandora &pandora, const std::string &fileName, const unsigned int majorVersion = 1, 
+        const unsigned int minorVersion = 1);
 
     /**
      *  @brief  Destructor

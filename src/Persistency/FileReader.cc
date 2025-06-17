@@ -15,8 +15,8 @@ namespace pandora
 
 FileReader::FileReader(const pandora::Pandora &pandora, const std::string &fileName) :
   Persistency(pandora, fileName),
-  m_fileMajorVersion(0),
-  m_fileMinorVersion(0)
+  m_fileMajorVersion(1),
+  m_fileMinorVersion(1)
 {
 }
 
